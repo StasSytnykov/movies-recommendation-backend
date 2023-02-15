@@ -39,9 +39,9 @@ async function startApolloServer() {
   // });
 
   await new Promise<void>((resolve) =>
-      httpServer.listen({ port: 5000 }, resolve)
+      httpServer.listen('https://movies-recommendation-api.onrender.com', resolve)
   );
-  console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`);
+  console.log(`🚀 Server ready at https://movies-recommendation-api.onrender.com`);
 }
 
 startApolloServer();
