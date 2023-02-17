@@ -1,5 +1,5 @@
 import { objectType, intArg, extendType, list, nonNull } from "nexus";
-import { getDetails, getPopular } from "../modules";
+import { getDetails, getPopular, getFoundMovies } from "../modules";
 import { Movies as MoviesClass } from "../modules/movies/entities/Movies";
 import { Movie as MovieClass } from "../modules/movies/entities/Movie";
 
@@ -19,6 +19,7 @@ export const Movie = objectType({
     t.nonNull.string("title");
     t.nonNull.string("releaseDate");
     t.string("posterPath");
+    t.string("overview");
     t.nonNull.int("id");
     t.list.field("genres", { type: Genre });
   },
@@ -51,6 +52,20 @@ export const MoviesQuery = extendType({
       },
       async resolve(parent, args, { locale }, info): Promise<MovieClass[]> {
         return await getDetails(args.ids, locale);
+      },
+    });
+    t.nonNull.field("moviesBySearchQuery", {
+      type: list(Movie),
+      args: {
+        searchText: nonNull("String"),
+        page: intArg(),
+      },
+      async resolve(parent, args, { locale }, info): Promise<MovieClass[]> {
+        return await getFoundMovies(
+          args.page ? args.page : undefined,
+          args.searchText,
+          locale
+        );
       },
     });
   },

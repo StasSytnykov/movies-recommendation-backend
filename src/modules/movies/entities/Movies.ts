@@ -8,6 +8,7 @@ export type TGenre = {
 export interface IMovie {
   id: number;
   poster_path?: string;
+  overview?: string;
   release_date: string;
   title: string;
   genres?: TGenre[];

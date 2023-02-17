@@ -10,6 +10,7 @@ type Genre {
 type Movie {
   genres: [Genre]
   id: Int!
+  overview: String
   posterPath: String
   releaseDate: String!
   title: String!
@@ -25,4 +26,5 @@ type Movies {
 type Query {
   movies(take: Int): Movies!
   moviesByIds(ids: [String!]!): [Movie]!
+  moviesBySearchQuery(page: Int, searchText: String!): [Movie]!
 }

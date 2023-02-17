@@ -35,6 +35,7 @@ export interface NexusGenObjects {
   Movie: { // root type
     genres?: Array<NexusGenRootTypes['Genre'] | null> | null; // [Genre]
     id: number; // Int!
+    overview?: string | null; // String
     posterPath?: string | null; // String
     releaseDate: string; // String!
     title: string; // String!
@@ -66,6 +67,7 @@ export interface NexusGenFieldTypes {
   Movie: { // field return type
     genres: Array<NexusGenRootTypes['Genre'] | null> | null; // [Genre]
     id: number; // Int!
+    overview: string | null; // String
     posterPath: string | null; // String
     releaseDate: string; // String!
     title: string; // String!
@@ -79,6 +81,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     movies: NexusGenRootTypes['Movies']; // Movies!
     moviesByIds: Array<NexusGenRootTypes['Movie'] | null>; // [Movie]!
+    moviesBySearchQuery: Array<NexusGenRootTypes['Movie'] | null>; // [Movie]!
   }
 }
 
@@ -90,6 +93,7 @@ export interface NexusGenFieldTypeNames {
   Movie: { // field return type name
     genres: 'Genre'
     id: 'Int'
+    overview: 'String'
     posterPath: 'String'
     releaseDate: 'String'
     title: 'String'
@@ -103,6 +107,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     movies: 'Movies'
     moviesByIds: 'Movie'
+    moviesBySearchQuery: 'Movie'
   }
 }
 
@@ -113,6 +118,10 @@ export interface NexusGenArgTypes {
     }
     moviesByIds: { // args
       ids: string[]; // [String!]!
+    }
+    moviesBySearchQuery: { // args
+      page?: number | null; // Int
+      searchText: string; // String!
     }
   }
 }
